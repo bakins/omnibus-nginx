@@ -14,6 +14,8 @@ dependency "preparation"
 
 # openresty dependencies/components
 dependency "openresty"
+dependency "luarocks"
+dependency "lua-resty-riak"
 
 # version manifest file
 dependency "version-manifest"

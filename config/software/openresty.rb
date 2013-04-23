@@ -13,6 +13,7 @@ dependency "nginx_upstream_check_module"
 dependency "nginx_http_jsonp_module"
 dependency "nginx-upload-module"
 dependency "ngx_cache_purge"
+dependency "nginx-statsd"
 
 source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "bd1e49af52a050415ea3e3c56be16f8d"
 
@@ -68,7 +69,8 @@ build do
            "--add-module=#{source_dir}/nginx_upstream_check_module",
            "--add-module=#{source_dir}/nginx_http_jsonp_module",
            "--add-module=#{source_dir}/nginx-upload-module",
-           "--add-module=#{source_dir}/ngx_cache_purge"
+           "--add-module=#{source_dir}/ngx_cache_purge",
+           "--add-module=#{source_dir}/nginx-statsd"
           ].join(" "), :env => env
   
   command "make -j #{max_build_jobs}", :env => env
