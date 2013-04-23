@@ -8,6 +8,7 @@ dependency "libxslt"
 dependency "pcre"
 dependency "gd"
 dependency "ngx_http_gunzip_filter_module"
+dependency "ngx_http_filter_cache"
 
 source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "bd1e49af52a050415ea3e3c56be16f8d"
 
@@ -20,6 +21,7 @@ env = {
 }
 
 build do
+  command "patch -p1 < #{source_dir}/ngx_http_filter_cache/core.diff", cwd: "#{project_dir}/bundle/nginx-1.2.7"
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-luajit",
@@ -56,7 +58,8 @@ build do
            "--with-pcre",
            "--with-cc-opt='-fPIC -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include'",
            "--with-ld-opt='-pie -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -Wl,-rpath #{install_dir}/embedded/lib'",
-           "--add-module=#{source_dir}/ngx_http_gunzip_filter_module"
+           "--add-module=#{source_dir}/ngx_http_gunzip_filter_module",
+           "--add-module=#{source_dir}/ngx_http_filter_cache"
           ].join(" "), :env => env
   
   command "make -j #{max_build_jobs}", :env => env
