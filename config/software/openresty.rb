@@ -9,6 +9,10 @@ dependency "pcre"
 dependency "gd"
 dependency "ngx_http_gunzip_filter_module"
 dependency "ngx_http_filter_cache"
+dependency "nginx_upstream_check_module"
+dependency "nginx_http_jsonp_module"
+dependency "nginx-upload-module"
+dependency "ngx_cache_purge"
 
 source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "bd1e49af52a050415ea3e3c56be16f8d"
 
@@ -22,6 +26,7 @@ env = {
 
 build do
   command "patch -p1 < #{source_dir}/ngx_http_filter_cache/core.diff", cwd: "#{project_dir}/bundle/nginx-1.2.7"
+  command "patch -p1 < #{source_dir}/nginx_upstream_check_module/check_1.2.6+.patch",  cwd: "#{project_dir}/bundle/nginx-1.2.7"
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-luajit",
@@ -59,7 +64,11 @@ build do
            "--with-cc-opt='-fPIC -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include'",
            "--with-ld-opt='-pie -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -Wl,-rpath #{install_dir}/embedded/lib'",
            "--add-module=#{source_dir}/ngx_http_gunzip_filter_module",
-           "--add-module=#{source_dir}/ngx_http_filter_cache"
+           "--add-module=#{source_dir}/ngx_http_filter_cache",
+           "--add-module=#{source_dir}/nginx_upstream_check_module",
+           "--add-module=#{source_dir}/nginx_http_jsonp_module",
+           "--add-module=#{source_dir}/nginx-upload-module",
+           "--add-module=#{source_dir}/ngx_cache_purge"
           ].join(" "), :env => env
   
   command "make -j #{max_build_jobs}", :env => env
