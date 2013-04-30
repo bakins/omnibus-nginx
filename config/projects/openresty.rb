@@ -16,6 +16,7 @@ dependency "preparation"
 dependency "openresty"
 dependency "luarocks"
 dependency "lua-resty-riak"
+dependency "mmap_lowmem"
 
 # version manifest file
 dependency "version-manifest"
