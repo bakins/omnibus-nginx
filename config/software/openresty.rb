@@ -76,4 +76,5 @@ build do
   command "make -j #{max_build_jobs}", :env => env
   command "make install", :env => env
   command "rm /opt/openresty/sbin/openresty.old || true"
+  command "mkdir -p #{install_dir}/embedded/lib/openresty"
 end
