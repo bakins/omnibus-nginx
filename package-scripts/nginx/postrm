@@ -4,6 +4,8 @@
 # after package is uninstalled.
 #
 
+rm -f /usr/sbin/nginx
+
 echo "openresty has been uninstalled!"
 
 exit 0
