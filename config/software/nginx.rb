@@ -1,4 +1,4 @@
-name "openresty"
+name "nginx"
 version "1.2.7.8"
 
 dependency "geoip"
@@ -22,27 +22,30 @@ relative_path "ngx_openresty-#{version}"
 build do
 
   env = {
-    "LDFLAGS" => "-pie -R#{install_dir}/embedded/lib -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-    "CFLAGS" => "-fPIC -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "LDFLAGS" => " -pie -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+    "CFLAGS" => " -fPIC -L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
   }
 
   command "patch -p1 < #{source_dir}/ngx_http_filter_cache/core.diff", cwd: "#{project_dir}/bundle/nginx-1.2.7"
   command "patch -p1 < #{source_dir}/nginx_upstream_check_module/check_1.2.6+.patch",  cwd: "#{project_dir}/bundle/nginx-1.2.7"
+
+  patch :source => 'server-header.diff'
+
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--with-luajit",
-           "--sbin-path=#{install_dir}/sbin/openresty",
-           "--conf-path=#{install_dir}/etc/openresty.conf",
-           "--error-log-path=#{install_dir}/log/openresty/error.log",
-           "--http-client-body-temp-path=#{install_dir}//embedded/lib/openresty/body",
-           "--http-fastcgi-temp-path=#{install_dir}/embedded/lib/openresty/fastcgi",
-           "--http-log-path=#{install_dir}/log/openresty/access.log",
-           "--http-proxy-temp-path=#{install_dir}/embedded/lib/openresty/proxy",
-           "--http-scgi-temp-path=#{install_dir}/embedded/lib/openresty/scgi",
-           "--http-uwsgi-temp-path=#{install_dir}/embedded/lib/openresty/uwsgi",
-           "--lock-path=#{install_dir}/lock/openresty.lock",
-           "--pid-path=#{install_dir}/run/openresty.pid",
+           "--conf-path=#{install_dir}/etc/nginx.conf",
+           "--error-log-path=#{install_dir}/log/error.log",
+           "--http-log-path=#{install_dir}/log/access.log",
+           "--sbin-path=#{install_dir}/sbin/nginx",
+           "--http-client-body-temp-path=#{install_dir}/lib/nginx/body",
+           "--http-fastcgi-temp-path=#{install_dir}/lib/nginx/fastcgi",
+           "--http-proxy-temp-path=#{install_dir}/lib/nginx/proxy",
+           "--http-scgi-temp-path=#{install_dir}/lib/nginx/scgi",
+           "--http-uwsgi-temp-path=#{install_dir}/lib/nginx/uwsgi",
+           "--lock-path=#{install_dir}/lock/nginx.lock",
+           "--pid-path=#{install_dir}/run/nginx.pid",
            "--with-http_dav_module",
            "--with-http_flv_module",
            "--with-http_geoip_module",
@@ -75,8 +78,8 @@ build do
            "--add-module=#{source_dir}/nginx-statsd"
           ].join(" "), :env => env
 
-  command "make -j #{max_build_jobs}", :env => env
+  command "make", :env => env
   command "make install", :env => env
-  command "rm /opt/openresty/sbin/openresty.old || true"
-  command "mkdir -p #{install_dir}/embedded/lib/openresty"
+  command "rm #{install_dir}/sbin/nginx.old || true"
+  command "mkdir -p #{install_dir}/lib/nginx"
 end

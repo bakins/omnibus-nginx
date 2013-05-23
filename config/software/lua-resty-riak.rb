@@ -6,5 +6,5 @@ dependency "lua-pb"
 source git: "https://github.com/bakins/lua-resty-riak.git"
 
 build do
-  command "#{install_dir}/embedded/bin/luarocks make"
+  command "#{install_dir}/embedded/luajit/bin/luarocks make"
 end

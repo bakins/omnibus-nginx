@@ -1,10 +1,10 @@
 
-name "openresty"
+name "nginx"
 maintainer "Brian Akins <brian@akins.org>"
 homepage "http://openresty.org"
 
-replaces        "openresty"
-install_path    "/opt/openresty"
+replaces        "nginx"
+install_path    "/opt/nginx"
 #build_version   Omnibus::BuildVersion.new.semver
 build_version   '1.2.7'
 build_iteration 1
@@ -13,9 +13,10 @@ build_iteration 1
 dependency "preparation"
 
 # openresty dependencies/components
-dependency "openresty"
+dependency "nginx"
 dependency "luarocks"
 dependency "lua-resty-riak"
+dependency "luafilesystem"
 
 if "linux" == platform
   dependency "mmap_lowmem"

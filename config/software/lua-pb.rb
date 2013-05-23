@@ -6,5 +6,5 @@ dependency "luarocks"
 source git: "https://github.com/Neopallium/lua-pb.git"
 
 build do
-  command "#{install_dir}/embedded/bin/luarocks make"
+  command "#{install_dir}/embedded/luajit/bin/luarocks make"
 end

@@ -9,7 +9,7 @@ end
 
 host_project_path = File.expand_path("..", __FILE__)
 guest_project_path = "/home/vagrant/#{File.basename(host_project_path)}"
-project_name = "openresty"
+project_name = "nginx"
 
 Vagrant.configure("2") do |config|
 
@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
     c.vm.box = "opscode-ubuntu-11.04"
     c.vm.box_url = "http://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-ubuntu-11.04.box"
   end
-
+  
   config.vm.define 'ubuntu-12.04' do |c|
     c.berkshelf.berksfile_path = "./Berksfile"
     c.vm.box = "canonical-ubuntu-12.04"
