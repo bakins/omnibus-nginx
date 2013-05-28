@@ -1,9 +1,0 @@
-#!/bin/bash
-#
-# Perform necessary openresty removal steps
-# after package is uninstalled.
-#
-
-echo "openresty has been uninstalled!"
-
-exit 0
