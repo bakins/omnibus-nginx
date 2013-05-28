@@ -6,7 +6,10 @@ source url: "http://mdounin.ru/hg/ngx_http_gunzip_filter_module/archive/#{versio
 relative_path "#{name}-#{version}"
 
 build do
-  block do
-    File.symlink(File.join(source_dir, relative_path), File.join(source_dir, name))
-  end
+  command "ln -sf #{name}-#{version} ../#{name}"
+  #block do
+  #  File.symlink(File.join(source_dir, relative_path), File.join(source_dir, name))
+  #end
+  #command "ln -sf #{File.join(source_dir, relative_path)} #{File.join(source_dir, name)}"
+
 end

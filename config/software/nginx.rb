@@ -1,3 +1,5 @@
+require "fileutils"
+
 name "nginx"
 version "1.2.7.8"
 
@@ -82,4 +84,11 @@ build do
   command "make install", :env => env
   command "rm #{install_dir}/sbin/nginx.old || true"
   command "mkdir -p #{install_dir}/lib/nginx"
+
+  block do
+    dir = File.join(install_dir, "etc", "init")
+    FileUtils.mkdir_p(dir)
+    FileUtils.cp(File.join(Omnibus.project_root, "etc", "nginx.init"), File.join(dir, "nginx.init"))
+  end
+
 end

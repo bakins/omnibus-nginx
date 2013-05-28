@@ -18,9 +18,7 @@ dependency "luarocks"
 dependency "lua-resty-riak"
 dependency "luafilesystem"
 
-if "linux" == platform
-  dependency "mmap_lowmem"
-end
+dependency "mmap_lowmem"
 
 # version manifest file
 dependency "version-manifest"
