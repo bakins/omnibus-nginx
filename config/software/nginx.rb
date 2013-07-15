@@ -1,7 +1,7 @@
 require "fileutils"
 
 name "nginx"
-version "1.2.7.8"
+version "1.2.8.6"
 
 dependency "geoip"
 dependency "openssl"
@@ -17,7 +17,7 @@ dependency "nginx-upload-module"
 dependency "ngx_cache_purge"
 dependency "nginx-statsd"
 
-source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "de97a895aecf341933909758688769d2"
+source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "9b811560d2b83b614a10c73fa1922670"
 
 relative_path "ngx_openresty-#{version}"
 
@@ -29,8 +29,8 @@ build do
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
   }
 
-  command "patch -p1 < #{source_dir}/ngx_http_filter_cache/core.diff", cwd: "#{project_dir}/bundle/nginx-1.2.7"
-  command "patch -p1 < #{source_dir}/nginx_upstream_check_module/check_1.2.6+.patch",  cwd: "#{project_dir}/bundle/nginx-1.2.7"
+  command "patch -p1 < #{source_dir}/ngx_http_filter_cache/core.diff", cwd: "#{project_dir}/bundle/nginx-1.2.8"
+  command "patch -p1 < #{source_dir}/nginx_upstream_check_module/check_1.2.6+.patch",  cwd: "#{project_dir}/bundle/nginx-1.2.8"
 
   patch :source => 'server-header.diff'
 
