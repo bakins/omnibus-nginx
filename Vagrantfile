@@ -14,7 +14,6 @@ project_name = "nginx"
 Vagrant.configure("2") do |config|
 
   config.vm.hostname = "#{project_name}-omnibus-build-lab"
-
   config.vm.define 'ubuntu-12.04' do |c|
     c.berkshelf.berksfile_path = "./Berksfile"
     c.vm.box = "canonical-ubuntu-12.04"
@@ -64,6 +63,7 @@ Vagrant.configure("2") do |config|
     }
 
     chef.run_list = [
+      "recipe[zip]",
       "recipe[omnibus::default]"
     ]
   end
