@@ -1,7 +1,7 @@
 require "fileutils"
 
 name "nginx"
-version "1.2.8.6"
+version "1.4.2.5"
 
 dependency "geoip"
 dependency "openssl"
@@ -13,11 +13,11 @@ dependency "ngx_http_gunzip_filter_module"
 dependency "ngx_http_filter_cache"
 dependency "nginx_upstream_check_module"
 dependency "nginx_http_jsonp_module"
-dependency "nginx-upload-module"
+#dependency "nginx-upload-module"
 dependency "ngx_cache_purge"
 dependency "nginx-statsd"
 
-source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "9b811560d2b83b614a10c73fa1922670"
+source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "db010e8f7635b5cd948f697885a00849"
 
 relative_path "ngx_openresty-#{version}"
 
@@ -29,8 +29,8 @@ build do
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
   }
 
-  command "patch -p1 < #{source_dir}/ngx_http_filter_cache/core.diff", cwd: "#{project_dir}/bundle/nginx-1.2.8"
-  command "patch -p1 < #{source_dir}/nginx_upstream_check_module/check_1.2.6+.patch",  cwd: "#{project_dir}/bundle/nginx-1.2.8"
+  command "patch -p1 < #{source_dir}/ngx_http_filter_cache/core.diff", cwd: "#{project_dir}/bundle/nginx-1.4.2"
+  command "patch -p1 < #{source_dir}/nginx_upstream_check_module/check_1.2.6+.patch",  cwd: "#{project_dir}/bundle/nginx-1.4.2"
 
   patch :source => 'server-header.diff'
 
@@ -75,7 +75,6 @@ build do
            "--add-module=#{source_dir}/ngx_http_filter_cache",
            "--add-module=#{source_dir}/nginx_upstream_check_module",
            "--add-module=#{source_dir}/nginx_http_jsonp_module",
-           "--add-module=#{source_dir}/nginx-upload-module",
            "--add-module=#{source_dir}/ngx_cache_purge",
            "--add-module=#{source_dir}/nginx-statsd"
           ].join(" "), :env => env
