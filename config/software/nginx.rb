@@ -4,6 +4,7 @@ name "nginx"
 version "1.4.2.8"
 
 dependency "geoip"
+dependency "zlib"
 dependency "openssl"
 dependency "libxml2"
 dependency "libxslt"

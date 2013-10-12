@@ -1,6 +1,8 @@
 name "geoip"
 version "1.5.0"
 
+dependency "zlib"
+
 source :url => "http://www.maxmind.com/download/geoip/api/c/GeoIP-#{version}.tar.gz",
        :md5 => "57bc400b5c11057a4cab00e1c5cf3f00"
 
