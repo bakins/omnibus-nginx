@@ -14,9 +14,9 @@ dependency "ngx_http_gunzip_filter_module"
 dependency "ngx_http_filter_cache"
 dependency "nginx_upstream_check_module"
 dependency "nginx_http_jsonp_module"
-#dependency "nginx-upload-module"
 dependency "ngx_cache_purge"
 dependency "nginx-statsd"
+dependency "nginx_requestid"
 
 source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "f05cb16affc4cf1739ea49cad4776e85"
 
@@ -77,7 +77,8 @@ build do
            "--add-module=#{source_dir}/nginx_upstream_check_module",
            "--add-module=#{source_dir}/nginx_http_jsonp_module",
            "--add-module=#{source_dir}/ngx_cache_purge",
-           "--add-module=#{source_dir}/nginx-statsd"
+           "--add-module=#{source_dir}/nginx-statsd",
+           "--add-module=#{source_dir}/nginx_requestid"
           ].join(" "), :env => env
 
   command "make", :env => env
