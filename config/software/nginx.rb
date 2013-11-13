@@ -1,7 +1,7 @@
 require "fileutils"
 
 name "nginx"
-version "1.4.3.3"
+version "1.4.3.4"
 
 dependency "geoip"
 dependency "zlib"
@@ -18,7 +18,7 @@ dependency "ngx_cache_purge"
 dependency "nginx-statsd"
 dependency "nginx_requestid"
 
-source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "74bd208269b9fc80992bb15103f98f8a"
+source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "caf369b757e6d6b59da3081596d6045f"
 
 relative_path "ngx_openresty-#{version}"
 
