@@ -17,6 +17,8 @@ dependency "nginx_http_jsonp_module"
 dependency "ngx_cache_purge"
 dependency "nginx-statsd"
 dependency "nginx_requestid"
+dependency "nginx_upstream_fair_module"
+dependency "nginx-sticky-module"
 
 source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "5e5359ae3f1b8db4046b358d84fabbc8"
 
@@ -78,7 +80,9 @@ build do
            "--add-module=#{source_dir}/nginx_http_jsonp_module",
            "--add-module=#{source_dir}/ngx_cache_purge",
            "--add-module=#{source_dir}/nginx-statsd",
-           "--add-module=#{source_dir}/nginx_requestid"
+           "--add-module=#{source_dir}/nginx_requestid",
+           "--add-module=#{source_dir}/nginx_upstream_fair_module",
+           "--add-module=#{source_dir}/nginx-sticky-module"
           ].join(" "), :env => env
 
   command "make", :env => env
