@@ -19,6 +19,7 @@ dependency "nginx-statsd"
 dependency "nginx_requestid"
 dependency "nginx_upstream_fair_module"
 dependency "nginx-sticky-module"
+dependency "nginx_tcp_proxy_module"
 
 source url: "http://openresty.org/download/ngx_openresty-#{version}.tar.gz", md5: "5e5359ae3f1b8db4046b358d84fabbc8"
 
@@ -32,6 +33,7 @@ build do
     "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
   }
 
+  command "patch -p1 < #{source_dir}/nginx_tcp_proxy_module/tcp.patch", cwd: "#{project_dir}/bundle/nginx-1.4.3"
   command "patch -p1 < #{source_dir}/ngx_http_filter_cache/core.diff", cwd: "#{project_dir}/bundle/nginx-1.4.3"
   command "patch -p1 < #{source_dir}/nginx_upstream_check_module/check_1.2.6+.patch",  cwd: "#{project_dir}/bundle/nginx-1.4.3"
 
@@ -80,7 +82,8 @@ build do
            "--add-module=#{source_dir}/nginx-statsd",
            "--add-module=#{source_dir}/nginx_requestid",
            "--add-module=#{source_dir}/nginx_upstream_fair_module",
-           "--add-module=#{source_dir}/nginx-sticky-module"
+           "--add-module=#{source_dir}/nginx-sticky-module",
+           "--add-module=#{source_dir}/nginx_tcp_proxy_module"
           ].join(" "), :env => env
 
   command "make", :env => env
