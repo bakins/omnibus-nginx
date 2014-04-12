@@ -1,5 +1,5 @@
 name "nginx-sticky-module"
-version "master"
+default_version "master"
 
 source git: "https://github.com/lusis/nginx-sticky-module"
 

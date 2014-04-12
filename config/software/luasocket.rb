@@ -1,5 +1,5 @@
 name "luasocket"
-version "2.0.2"
+default_version "2.0.2"
 
 dependency "luarocks"
 

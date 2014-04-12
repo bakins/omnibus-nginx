@@ -1,5 +1,5 @@
 name "geoip"
-version "1.5.0"
+default_version "1.5.0"
 
 dependency "zlib"
 

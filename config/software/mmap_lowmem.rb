@@ -1,5 +1,5 @@
 name "mmap_lowmem"
-version "master"
+default_version "master"
 
 source git: "https://github.com/Neopallium/mmap_lowmem.git"
 

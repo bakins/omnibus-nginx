@@ -1,5 +1,5 @@
 name "luafilesystem"
-version "1.6.2"
+default_version "1.6.2"
 
 dependency "luarocks"
 

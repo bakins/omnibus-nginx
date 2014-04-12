@@ -29,10 +29,10 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|
     # Give enough horsepower to build without taking all day.
     vb.customize [
-      "modifyvm", :id,
-      "--memory", "1536",
-      "--cpus", "2"
-    ]
+                  "modifyvm", :id,
+                  "--memory", "4096",
+                  "--cpus", "2"
+                 ]
   end
 
   # Ensure a recent version of the Chef Omnibus packages are installed
@@ -48,6 +48,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder host_project_path, guest_project_path
 
+  config.vm.provision :shell, :inline => "apt-get update"
+
   # prepare VM to be an Omnibus builder
   config.vm.provision :chef_solo do |chef|
     chef.json = {
@@ -59,9 +61,8 @@ Vagrant.configure("2") do |config|
     }
 
     chef.run_list = [
-      "recipe[zip]",
-      "recipe[omnibus::default]"
-    ]
+                     "recipe[omnibus::default]"
+                    ]
   end
 
   config.vm.provision :shell, :inline => <<-OMNIBUS_BUILD
