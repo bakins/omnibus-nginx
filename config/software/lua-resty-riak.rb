@@ -1,6 +1,7 @@
 name "lua-resty-riak"
-version "0.2.1"
+default_version "0.2.1"
 
+dependency "luarocks"
 dependency "lua-pb"
 
 source git: "https://github.com/bakins/lua-resty-riak.git"

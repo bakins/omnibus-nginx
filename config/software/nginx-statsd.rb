@@ -1,4 +1,4 @@
 name "nginx-statsd"
-version "master"
+default_version "master"
 
 source git: "https://github.com/zebrafishlabs/nginx-statsd"

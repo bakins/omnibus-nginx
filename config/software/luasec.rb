@@ -1,5 +1,5 @@
 name "luasec"
-version "0.4"
+default_version "0.4"
 
 dependency "openssl"
 dependency "luarocks"

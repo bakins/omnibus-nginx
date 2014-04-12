@@ -1,6 +1,7 @@
 name "lua-pb"
-version "master"
+default_version "master"
 
+dependency "nginx"
 dependency "luarocks"
 
 source git: "https://github.com/Neopallium/lua-pb.git"

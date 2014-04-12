@@ -1,5 +1,5 @@
 name "luarocks"
-version "2.0.12"
+default_version "2.0.12"
 
 dependency "nginx"
 
